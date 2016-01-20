@@ -7,15 +7,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 public class ReadFile {
 	public Person [] p;
+	HashMap<Person, Person> backtrackMap = new HashMap<>();
+	public int NumberOfPersons;
 	// this function to read from file 
 	public void read(int n) throws IOException
 	{
-	
+		NumberOfPersons = n;
 		String read = null;	
 		//this arr used to read line by line;
 		ArrayList<String> arr=new ArrayList<String>();
@@ -28,7 +32,11 @@ public class ReadFile {
 		try
 		{
 			//the path of file 
+<<<<<<< HEAD
 			Scanner sc=new Scanner(new File("C:/Users/mohamed/Desktop/file.txt"));
+=======
+			Scanner sc=new Scanner(new File("C:/Users/Ali/Desktop/file.txt"));
+>>>>>>> Korayementality/master
 			//this help to split any comma or space
 			sc.useDelimiter(",\\s*");
 			//read line by line 
@@ -67,9 +75,28 @@ public class ReadFile {
 			//add connection to exist persons
 			Persons=Arrays.asList(arr.get(j).split("\\s*,\\s*"));
 			//System.out.println(p[j-3]);
+<<<<<<< HEAD
 			p[j-n].friend.addAll(Persons);
+=======
+			p[j-n].friend_String.addAll(Persons);
+>>>>>>> Korayementality/master
 		}
 	}
+	public void test(){
+		p[0].getfriends(p,NumberOfPersons);
+
+		p[1].getfriends(p,NumberOfPersons);
+
+		p[2].getfriends(p,NumberOfPersons);
+
+		p[3].getfriends(p,NumberOfPersons);
+
+		p[4].getfriends(p,NumberOfPersons);
+		
+		p[0].remove_node(p,0,0);
+		System.out.println(p[0].friend_Person);
+	}
+	//searches for input name
 	public boolean search(int s)
 	{
 		 Scanner sc=new Scanner(System.in);
@@ -86,16 +113,17 @@ public class ReadFile {
 	     sc.close();
 		return found;
 	}
-	public void mutualFriends(int s){
+	//returns total mutual friend_Strings
+	public void mutualfriend_Strings(int s){
 		Scanner sc=new Scanner(System.in);
 		String first_name=null;
 		String second_name=null;
 		Person fp=null;
 		Person sp=null;
-		String friend;
-		System.out.println("Enter first name to find number of mutual friends");
+		String friend_String;
+		System.out.println("Enter first name to find number of mutual friend_Strings");
 		first_name=sc.nextLine();
-		System.out.println("Enter second name to find number of mutual friends");
+		System.out.println("Enter second name to find number of mutual friend_Strings");
 		second_name=sc.nextLine();
 		int sum=0;
 		for(int i=0;i<s;i++){
@@ -107,16 +135,16 @@ public class ReadFile {
 	    		 sp=p[i];
 	    	}
 		}
-		int amr=fp.friend.size();
+		int amr=fp.friend_String.size();
 		System.out.println(amr);
 		String test_fp=null;
 		String test_sp=null;
-		for(int x=0;x<fp.friend.size();x++){
+		for(int x=0;x<fp.friend_String.size();x++){
 			
-			for(int j=0;j<sp.friend.size();j++){
-				test_fp=fp.friend.get(x);
-				test_sp=sp.friend.get(j);
-			if(fp.friend.get(x).equals(sp.friend.get(j))){
+			for(int j=0;j<sp.friend_String.size();j++){
+				test_fp=fp.friend_String.get(x);
+				test_sp=sp.friend_String.get(j);
+			if(fp.friend_String.get(x).equals(sp.friend_String.get(j))){
 				
 				sum++;
 				break;
@@ -124,35 +152,85 @@ public class ReadFile {
 			}
 			
 		}
-		System.out.println("the mutual friends = "+sum);
+		System.out.println("the mutual friend_Strings = "+sum);
 	    
 	}
-	/*
-	public LinkedList returnfriendlist(String name)
-	{
-		LinkedList x=new LinkedList<Person>();;
-		int index=0;
-		for (int i=0;i<p.length;i++)
-		{
-			if (p[i].equals(name))
-			{
-				index=i;
-				break;
-			}
-		}
-		
-		for (int i=0;i<p[index].friend.size();i++)
-		{
-			for (int j=0;j<p.length;j++)
-			{
-				if (p[j].friend.get(j))
-				x.add(p[index].friend.get(i));
-			}
-			System.out.println(p[index].friend.get(i).);
-		}
-		
-		return x;
+	
+	
+	public void FindShortestPath(){
+		//Find if both names exist, get their Person objects and pass them to BFS();
+		Person firt_Person=null;
+		Person second_Person=null; 
+		Scanner sc=new Scanner(System.in);
+		 
+		 System.out.println("Enter first person");
+	      String first_String=null;
+	      first_String=sc.nextLine();
+		     for(int i=0;i<NumberOfPersons;i++){
+		    	 if(first_String.equals(p[i].name)){
+		    		 firt_Person=p[i];
+		    	 }
+		    	
+		     }
+		     if(firt_Person==null){
+		    		System.out.println("This Person isn't in the Network");
+		     }
+		     System.out.println("Enter second person");
+		      String second_String=null;
+		      first_String=sc.nextLine();
+			     for(int i=0;i<NumberOfPersons;i++){
+			    	 if(first_String.equals(p[i].name)){
+			    		 second_Person=p[i];
+			    	 }
+			     }
+			     if(second_Person==null){
+			    		System.out.println("This Person isn't in the Network");
+			     }
+			     BFS(firt_Person, second_Person);
+		 
 	}
+	
+	public void BFS(Person startPerson, Person endPerson)
+	{
+		Queue mainQ = new LinkedList<Person>();
+		Queue updateQ = new LinkedList<Person>();
+		LinkedList<Person> finalOutput = new LinkedList<Person>();
+		mainQ.add(startPerson);
+		Person temp = null;
+		while(!mainQ.isEmpty())
+		{
+			temp = (Person) mainQ.poll();
+			if(temp == endPerson)
+			{
+				finalOutput.add(temp);
+				while(temp != startPerson){
+					finalOutput.add(backtrackMap.get(temp));
+					
+					temp = (Person) finalOutput.getLast();
+				}
+			}
+			
+			if(temp.visited)
+			{
+				//temp = (Person) //
+				mainQ.poll();
+			}
+			temp.friend_Person=temp.getfriends(p, 5);
+			
+			for (int i = 0; i < temp.friend_Person.size(); i++) {
+				if(!temp.friend_Person.get(i).visited && !temp.friend_Person.get(i).explored)
+				{
+					temp.friend_Person.get(i).explored = true;
+					mainQ.add(temp.friend_Person.get(i));
+					backtrackMap.put(temp.friend_Person.get(i), temp);
+				}
+			}
+		}
+		for (int i =finalOutput.size()-2; i >=0; i--) {
+			System.out.println(finalOutput.get(i).name);
+		}
+	}
+<<<<<<< HEAD
 */
 	
 	LinkedList<Person> mincut1=new LinkedList<Person>();
@@ -205,4 +283,6 @@ public class ReadFile {
 			
 		}
 	}
+=======
+>>>>>>> Korayementality/master
 }
