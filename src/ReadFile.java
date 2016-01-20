@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 public class ReadFile {
 	public Person [] p;
@@ -28,7 +29,7 @@ public class ReadFile {
 		try
 		{
 			//the path of file 
-			Scanner sc=new Scanner(new File("C:/Users/tarek/Desktop/file.txt"));
+			Scanner sc=new Scanner(new File("C:/Users/Ali/Desktop/file.txt"));
 			//this help to split any comma or space
 			sc.useDelimiter(",\\s*");
 			//read line by line 
@@ -63,13 +64,14 @@ public class ReadFile {
 		//clear Persons array
 		Persons=null;
 		
-		for(int j=3;j<n*2;j++){
+		for(int j=n;j<n*2;j++){
 			//add connection to exist persons
 			Persons=Arrays.asList(arr.get(j).split("\\s*,\\s*"));
 			//System.out.println(p[j-3]);
-			p[j-3].friend.addAll(Persons);
+			p[j-n].friend.addAll(Persons);
 		}
 	}
+	//searches for input name
 	public boolean search(int s)
 	{
 		 Scanner sc=new Scanner(System.in);
@@ -86,6 +88,7 @@ public class ReadFile {
 	     sc.close();
 		return found;
 	}
+	//returns total mutual friends
 	public void mutualFriends(int s){
 		Scanner sc=new Scanner(System.in);
 		String first_name=null;
@@ -127,6 +130,18 @@ public class ReadFile {
 		System.out.println("the mutual friends = "+sum);
 	    
 	}
+	
+	public void BFS(Person startPerson)
+	{
+		Queue mainQ = new LinkedList<Person>();
+		mainQ.add(startPerson);
+		Person temp = null;
+		while(!mainQ.isEmpty())
+		{
+			temp = (Person) mainQ.poll();
+		}
+	}
+	
 	/*
 	public LinkedList returnfriendlist(String name)
 	{
