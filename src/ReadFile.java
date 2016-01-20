@@ -154,4 +154,55 @@ public class ReadFile {
 		return x;
 	}
 */
+	
+	LinkedList<Person> mincut1=new LinkedList<Person>();
+	LinkedList<Person> mincut2=new LinkedList<Person>();
+	int mincut=0;
+	boolean index_avaliable=true;
+	private Person[] persons;
+	public void karager(LinkedList a,LinkedList b)
+	{
+		
+		int index1,index2;
+		int[] pickedIndexes = null;
+		persons=p.clone();
+		for (int i=0;i<Math.pow((p.length), 2)*((-Math.log(1-p.length))/p.length);i++)
+		{
+			//generating random no. between min and max value 
+			//p.s i took this formula from internet 
+			index1=	0 + (int)(Math.random() * ((p.length - 0) + 1));
+			Person temp=p[index1];
+			LinkedList temp_friends=temp.MutualFriends();
+			//taking a random edge from this persons connnections 
+			index2=	0 + (int)(Math.random() * ((temp_friends.size() - 0) + 1));
+			
+			//break the connection 
+			String name_friend=persons[index1].friend.get(index2);
+			persons[index1].friend.remove(index2);
+			//index 1 is person a
+			//index 2 is person b in friend list of a
+			//remove conncetion from side of friend 
+			for (int j=0;j<persons.length;j++)
+			{
+				//find friend in the persons list 
+				if (persons[j].name.equals(name_friend))
+				{
+					//iterating inside the friend list of that person b to remove the 
+					for (int k=0;k<persons[j].friend.size();k++)
+					{
+						if (persons[j].friend.get(k).equals(persons[index1].name))
+						{
+							persons[j].friend.remove(k);
+							break;
+						}
+					}
+					
+				}
+			}
+			
+			//merge to one of the lists 
+			
+			
+		}
+	}
 }
