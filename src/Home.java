@@ -18,7 +18,7 @@ public class Home {
     	// this function to read from file
         readFromFile.read(x);
           
-         System.out.println(readFromFile.search(x));
+        readFromFile.search(x);
           
          // readFromFile.mutualFriends(x);
          // readFromFile.returnfriendlist(name)

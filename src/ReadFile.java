@@ -62,16 +62,18 @@ public class ReadFile {
 		}
 		//clear Persons array
 		Persons=null;
-		
-		for(int j=3;j<n*2;j++){
+		for(int j=n;j<n*2;j++){
+			
 			//add connection to exist persons
 			Persons=Arrays.asList(arr.get(j).split("\\s*,\\s*"));
-			//System.out.println(p[j-3]);
-			p[j-3].friend.addAll(Persons);
+			
+			p[j-n].friend.addAll(Persons);
 		}
 	}
 	public boolean search(int s)
 	{
+
+LinkedList<Person> friends_person=new LinkedList<>();
 		 Scanner sc=new Scanner(System.in);
 		 boolean found = false;
 	      System.out.println("Enter name to search");
@@ -81,7 +83,10 @@ public class ReadFile {
 
 	    	 if(search.equals(p[i].name)){
 	    		found=true ;
+	    		friends_person= p[i].getfriends(p, s);
+	    		System.out.println(friends_person);
 	    	 }
+	    	 
 	     }
 	     sc.close();
 		return found;
