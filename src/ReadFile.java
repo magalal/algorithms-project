@@ -28,7 +28,7 @@ public class ReadFile {
 		try
 		{
 			//the path of file 
-			Scanner sc=new Scanner(new File("C:/Users/tarek/Desktop/file.txt"));
+			Scanner sc=new Scanner(new File("C:/Users/mohamed/Desktop/file.txt"));
 			//this help to split any comma or space
 			sc.useDelimiter(",\\s*");
 			//read line by line 
@@ -63,11 +63,11 @@ public class ReadFile {
 		//clear Persons array
 		Persons=null;
 		
-		for(int j=3;j<n*2;j++){
+		for(int j=n;j<n*2;j++){
 			//add connection to exist persons
 			Persons=Arrays.asList(arr.get(j).split("\\s*,\\s*"));
 			//System.out.println(p[j-3]);
-			p[j-3].friend.addAll(Persons);
+			p[j-n].friend.addAll(Persons);
 		}
 	}
 	public boolean search(int s)
